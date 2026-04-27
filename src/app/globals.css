@@ -180,6 +180,24 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  .project-modal-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #2a2a4a transparent;
+  }
+  .project-modal-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .project-modal-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .project-modal-scrollbar::-webkit-scrollbar-thumb {
+    background: #2a2a4a;
+    border-radius: 3px;
+  }
+  .project-modal-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #3a3a5a;
+  }
 }
 
 /* Smooth scroll */

@@ -65,12 +65,13 @@ export default function ProjectDetail({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.85, y: 60 }}
               transition={{ type: "spring", damping: 28, stiffness: 250 }}
-              className="pointer-events-auto w-full max-w-5xl max-h-[90vh] overflow-hidden rounded-2xl shadow-2xl"
+              className="pointer-events-auto w-full max-w-5xl rounded-2xl shadow-2xl flex flex-col"
               style={{
+                maxHeight: '90vh',
                 boxShadow: `0 0 80px ${project.color}20, 0 25px 50px rgba(0,0,0,0.5)`,
               }}
             >
-              <div className="h-full bg-[#0d0d1a] border border-[#2a2a4a] rounded-2xl overflow-hidden flex flex-col">
+              <div className="bg-[#0d0d1a] border border-[#2a2a4a] rounded-2xl overflow-hidden flex flex-col" style={{ maxHeight: '90vh' }}>
                 {/* Header */}
                 <div className="relative p-6 sm:p-8 pb-0 shrink-0">
                   {/* Glow */}
@@ -169,7 +170,7 @@ export default function ProjectDetail({
                 </div>
 
                 {/* Content - scrollable */}
-                <div className="flex-1 overflow-y-auto p-6 sm:p-8 pt-6 scrollbar-hide">
+                <div className="flex-1 overflow-y-auto p-6 sm:p-8 pt-6 min-h-0 project-modal-scrollbar">
                   {/* Media Gallery Section */}
                   {hasMedia && (
                     <motion.div
