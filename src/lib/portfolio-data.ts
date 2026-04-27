@@ -72,6 +72,8 @@ export interface Project {
   color: string;
   icon: string;
   gradient: string;
+  images: string[];
+  videos: string[];
 }
 
 export const projects: Project[] = [
@@ -98,6 +100,8 @@ export const projects: Project[] = [
     color: "#ef476f",
     icon: "🏚️",
     gradient: "from-rose-900/60 to-gray-950",
+    images: [],
+    videos: [],
   },
   {
     id: "homa",
@@ -122,6 +126,8 @@ export const projects: Project[] = [
     color: "#06d6a0",
     icon: "🏃",
     gradient: "from-emerald-900/60 to-green-950",
+    images: [],
+    videos: [],
   },
   {
     id: "paralysis-dream",
@@ -146,6 +152,8 @@ export const projects: Project[] = [
     color: "#818cf8",
     icon: "💀",
     gradient: "from-violet-900/60 to-gray-950",
+    images: [],
+    videos: [],
   },
   {
     id: "skyfall",
@@ -170,6 +178,8 @@ export const projects: Project[] = [
     color: "#38bdf8",
     icon: "⬇️",
     gradient: "from-sky-900/60 to-blue-950",
+    images: [],
+    videos: [],
   },
 ];
 

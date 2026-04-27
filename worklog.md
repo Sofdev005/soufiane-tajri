@@ -58,3 +58,31 @@ Stage Summary:
 - All components now use Soufiane Tajri's real data from portfolio-data.ts
 - Education section added with timeline layout
 - All animations and design preserved
+
+---
+Task ID: 3
+Agent: Main Agent
+Task: Fix project popup modal centering and add image/video media support for each project
+
+Work Log:
+- Read ProjectDetail.tsx and ProjectsSection.tsx to understand current modal implementation
+- Identified modal centering issue: was using fixed inset positioning with complex responsive classes that caused left-alignment on some screens
+- Updated Project interface in portfolio-data.ts to add `images: string[]` and `videos: string[]` fields
+- Added empty images/videos arrays to all 4 projects as placeholder data
+- Rewrote ProjectDetail.tsx modal with proper flexbox centering (`fixed inset-0 flex items-center justify-center p-4 sm:p-6 md:p-8`)
+- Increased modal max-width to `max-w-5xl` for a bigger display
+- Added Media Gallery section in the modal with grid layout for images and videos
+- Added full lightbox overlay with prev/next navigation and counter for browsing media
+- Added YouTube embed support (auto-converts watch URLs to embed URLs)
+- Added native video player support for non-YouTube URLs
+- Updated ProjectsSection.tsx to show cover image thumbnail on project cards when images exist
+- Added media count badges and video count indicators on project cards
+- All changes compile successfully with no errors
+
+Stage Summary:
+- Project popup modal now properly centered on all screen sizes using flexbox
+- Modal is bigger (max-w-5xl) for better content display
+- Each project supports `images` (screenshot URLs) and `videos` (YouTube URLs or direct video URLs)
+- Lightbox feature for full-size image/video viewing with navigation
+- Project cards show cover thumbnail when images are available
+- Empty arrays ready for user to fill in their media URLs

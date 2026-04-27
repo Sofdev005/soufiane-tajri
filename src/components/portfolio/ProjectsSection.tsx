@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { ExternalLink, Github, Star } from "lucide-react";
+import { ExternalLink, Github, Star, ImageIcon, Film } from "lucide-react";
 import { projects, type Project } from "@/lib/portfolio-data";
 
 const statusColors: Record<string, string> = {
@@ -74,6 +74,36 @@ export default function ProjectsSection({
 
               {/* Card top gradient bar */}
               <div className={`h-1 bg-gradient-to-r ${project.gradient}`} />
+
+              {/* Cover image thumbnail */}
+              {project.images.length > 0 && (
+                <div className="relative overflow-hidden">
+                  <img
+                    src={project.images[0]}
+                    alt={project.title}
+                    className="w-full h-44 object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1e1e36]/90 via-transparent to-transparent" />
+                  {project.images.length > 1 && (
+                    <div className="absolute bottom-2 right-2 flex items-center gap-1 text-xs text-[#8888aa] bg-black/40 backdrop-blur-sm rounded-full px-2 py-1">
+                      <ImageIcon className="w-3 h-3" />
+                      {project.images.length}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Media badges when no cover image */}
+              {project.images.length === 0 && project.videos.length > 0 && (
+                <div className="flex items-center gap-2 px-6 pt-4">
+                  {project.videos.length > 0 && (
+                    <span className="flex items-center gap-1 text-xs text-[#8888aa] bg-[#0d0d1a]/50 rounded-full px-2 py-1">
+                      <Film className="w-3 h-3" />
+                      {project.videos.length} video{project.videos.length > 1 ? "s" : ""}
+                    </span>
+                  )}
+                </div>
+              )}
 
               <div className="relative z-10 p-6">
                 {/* Status & Year */}
