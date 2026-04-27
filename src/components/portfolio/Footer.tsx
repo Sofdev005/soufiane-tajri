@@ -15,20 +15,20 @@ export default function Footer() {
           <div className="flex items-center gap-2">
             <Gamepad2 className="w-5 h-5 text-[#f59e0b]" />
             <span className="font-[family-name:var(--font-caveat)] text-lg font-bold text-[#f59e0b]">
-              Alex.dev
+              Soufiane.Tajri
             </span>
           </div>
 
           {/* Copyright */}
           <p className="text-sm text-[#8888aa] flex items-center gap-1">
-            © {new Date().getFullYear()} Alex Rivers. Crafted with
+            © 2026 Soufiane Tajri. Built with
             <motion.span
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 1.5, repeat: Infinity }}
             >
               <Heart className="w-4 h-4 text-[#ef476f] inline mx-0.5" fill="currentColor" />
             </motion.span>
-            and lots of ☕
+            and lots of ☕ — passion for games & good code
           </p>
 
           {/* Hand-drawn decoration */}

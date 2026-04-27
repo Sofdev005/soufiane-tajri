@@ -2,53 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-
-const skillCategories = [
-  {
-    title: "Game Engines",
-    color: "#f59e0b",
-    icon: "🎮",
-    skills: [
-      { name: "Unity", level: 95 },
-      { name: "Unreal Engine", level: 80 },
-      { name: "Godot", level: 75 },
-      { name: "GameMaker", level: 70 },
-    ],
-  },
-  {
-    title: "Programming",
-    color: "#06d6a0",
-    icon: "💻",
-    skills: [
-      { name: "C#", level: 95 },
-      { name: "C++", level: 80 },
-      { name: "JavaScript", level: 85 },
-      { name: "Python", level: 75 },
-    ],
-  },
-  {
-    title: "Art & Design",
-    color: "#ef476f",
-    icon: "🎨",
-    skills: [
-      { name: "Pixel Art", level: 90 },
-      { name: "3D Modeling", level: 70 },
-      { name: "UI/UX Design", level: 85 },
-      { name: "Animation", level: 80 },
-    ],
-  },
-  {
-    title: "Other Tools",
-    color: "#818cf8",
-    icon: "🛠️",
-    skills: [
-      { name: "Blender", level: 75 },
-      { name: "Photoshop", level: 85 },
-      { name: "Aseprite", level: 90 },
-      { name: "FMOD / Wwise", level: 70 },
-    ],
-  },
-];
+import { skillCategories } from "@/lib/portfolio-data";
 
 function SkillBar({ name, level, color, delay }: { name: string; level: number; color: string; delay: number }) {
   const ref = useRef(null);

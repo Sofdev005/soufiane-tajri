@@ -2,12 +2,12 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ExternalLink, Github, ChevronRight } from "lucide-react";
-import type { Project } from "./ProjectsSection";
+import type { Project } from "@/lib/portfolio-data";
 
 const statusColors: Record<string, string> = {
   Released: "#06d6a0",
   "In Development": "#f59e0b",
-  Prototype: "#818cf8",
+  "Hackathon Winner": "#fbbf24",
 };
 
 export default function ProjectDetail({
@@ -80,17 +80,59 @@ export default function ProjectDetail({
                       <h2 className="text-2xl sm:text-3xl font-bold text-[#e8e6e3]">
                         {project.title}
                       </h2>
-                      <p className="text-[#8888aa]">{project.genre}</p>
+                      <p className="text-[#8888aa]">{project.category}</p>
                     </div>
                   </div>
 
-                  {/* Role */}
-                  <div className="flex items-center gap-2 mt-3">
-                    <span className="text-sm text-[#8888aa]">Role:</span>
-                    <span className="text-sm font-medium" style={{ color: project.color }}>
-                      {project.role}
-                    </span>
+                  {/* Role, Duration, Team */}
+                  <div className="flex flex-wrap items-center gap-4 mt-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-[#8888aa]">Role:</span>
+                      <span className="text-sm font-medium" style={{ color: project.color }}>
+                        {project.role}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-[#8888aa]">Duration:</span>
+                      <span className="text-sm font-medium text-[#e8e6e3]">
+                        {project.duration}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-[#8888aa]">Team:</span>
+                      <span className="text-sm font-medium text-[#e8e6e3]">
+                        {project.team}
+                      </span>
+                    </div>
                   </div>
+
+                  {/* Platforms */}
+                  {project.platforms.length > 0 && (
+                    <div className="flex items-center gap-2 mt-2">
+                      <span className="text-sm text-[#8888aa]">Platforms:</span>
+                      <div className="flex gap-2">
+                        {project.platforms.map((p) => (
+                          <span key={p} className="text-xs px-2 py-0.5 rounded-full bg-[#1e1e36] border border-[#2a2a4a]/50 text-[#e8e6e3]">
+                            {p}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Awards */}
+                  {project.awards.length > 0 && (
+                    <div className="flex items-center gap-2 mt-2">
+                      <span className="text-sm text-[#8888aa]">Awards:</span>
+                      <div className="flex gap-2">
+                        {project.awards.map((award) => (
+                          <span key={award} className="text-xs px-2 py-0.5 rounded-full bg-[#fbbf24]/10 border border-[#fbbf24]/30 text-[#fbbf24] font-medium">
+                            {award}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -112,7 +154,7 @@ export default function ProjectDetail({
                   </p>
                 </motion.div>
 
-                {/* Features */}
+                {/* Highlights */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -121,10 +163,10 @@ export default function ProjectDetail({
                 >
                   <h3 className="text-lg font-bold text-[#e8e6e3] mb-3 flex items-center gap-2">
                     <span className="w-6 h-px bg-[#06d6a0]" />
-                    Key Features
+                    Key Highlights
                   </h3>
                   <ul className="space-y-2">
-                    {project.features.map((feature, i) => (
+                    {project.highlights.map((highlight, i) => (
                       <motion.li
                         key={i}
                         initial={{ opacity: 0, x: -20 }}
@@ -136,7 +178,7 @@ export default function ProjectDetail({
                           className="w-4 h-4 mt-1 shrink-0"
                           style={{ color: project.color }}
                         />
-                        <span>{feature}</span>
+                        <span>{highlight}</span>
                       </motion.li>
                     ))}
                   </ul>
@@ -210,7 +252,7 @@ export default function ProjectDetail({
                     style={{ backgroundColor: project.color }}
                   >
                     <ExternalLink className="w-4 h-4" />
-                    Play Now
+                    View Details
                   </motion.a>
                 </div>
               </div>

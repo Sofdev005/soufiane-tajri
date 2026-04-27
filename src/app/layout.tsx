@@ -20,10 +20,10 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "Alex Rivers | Game Designer & Developer Portfolio",
-  description: "Creative game designer and developer portfolio. Explore my projects, skills, and passion for crafting immersive gaming experiences.",
-  keywords: ["game designer", "game developer", "portfolio", "indie games", "Unity", "Unreal Engine"],
-  authors: [{ name: "Alex Rivers" }],
+  title: "Soufiane Tajri | Game Designer & Developer",
+  description: "Game designer & developer student focused on building gameplay systems and prototypes. Explore my projects, skills, and passion for crafting immersive gaming experiences with Unity and Godot.",
+  keywords: ["game designer", "game developer", "portfolio", "Unity", "Godot", "gameplay systems", "ENSAD"],
+  authors: [{ name: "Soufiane Tajri" }],
   icons: {
     icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>",
   },

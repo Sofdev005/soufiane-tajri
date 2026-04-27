@@ -8,6 +8,7 @@ import HeroSection from "@/components/portfolio/HeroSection";
 import AboutSection from "@/components/portfolio/AboutSection";
 import SkillsSection from "@/components/portfolio/SkillsSection";
 import ProjectsSection, { type Project } from "@/components/portfolio/ProjectsSection";
+import EducationSection from "@/components/portfolio/EducationSection";
 import ProjectDetail from "@/components/portfolio/ProjectDetail";
 import ContactSection from "@/components/portfolio/ContactSection";
 import Footer from "@/components/portfolio/Footer";
@@ -41,6 +42,7 @@ export default function PortfolioPage() {
         <AboutSection />
         <SkillsSection />
         <ProjectsSection onSelectProject={handleSelectProject} />
+        <EducationSection />
         <ContactSection />
       </main>
 

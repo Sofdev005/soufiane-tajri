@@ -150,22 +150,27 @@ export default function AboutSection() {
             className="space-y-6"
           >
             <p className="text-lg sm:text-xl text-[#8888aa] leading-relaxed">
-              I&apos;m a passionate <span className="text-[#f59e0b] font-semibold">game designer and developer</span> with
-              over 5 years of experience creating interactive experiences that captivate players.
+              I&apos;m a <span className="text-[#f59e0b] font-semibold">game designer &amp; developer student</span>{" "}
+              focused on building gameplay systems and prototypes.
             </p>
 
             <p className="text-lg sm:text-xl text-[#8888aa] leading-relaxed">
-              From conceptualizing game mechanics to implementing pixel-perfect UI, I thrive at the intersection
-              of <span className="text-[#06d6a0] font-semibold">creative storytelling</span> and
-              <span className="text-[#818cf8] font-semibold"> technical execution</span>.
+              My work centers on <span className="text-[#06d6a0] font-semibold">player control, interaction, and system-driven mechanics</span>{" "}
+              in both 2D and 3D projects. I primarily use{" "}
+              <span className="text-[#818cf8] font-semibold">Unity and Godot</span>, choosing tools based on technical requirements rather than engine preference.
+            </p>
+
+            <p className="text-lg sm:text-xl text-[#8888aa] leading-relaxed">
+              I care about <span className="text-[#f59e0b] font-semibold">clean architecture</span>,{" "}
+              <span className="text-[#06d6a0] font-semibold">iteration speed</span>, and mechanics that feel responsive and intentional.
             </p>
 
             {/* Stats cards */}
             <div className="grid grid-cols-3 gap-4 pt-4">
               {[
-                { number: "5+", label: "Years Exp", color: "#f59e0b" },
-                { number: "20+", label: "Games Shipped", color: "#06d6a0" },
-                { number: "50K+", label: "Players", color: "#ef476f" },
+                { number: "4+", label: "Games Built", color: "#f59e0b" },
+                { number: "2+", label: "Years Coding", color: "#06d6a0" },
+                { number: "1", label: "Hackathon Won", color: "#ef476f" },
               ].map((stat, i) => (
                 <motion.div
                   key={stat.label}
@@ -192,7 +197,7 @@ export default function AboutSection() {
               className="relative mt-6 p-4 bg-[#f59e0b]/5 border-l-4 border-[#f59e0b]/50 hand-border-alt border-l-4"
             >
               <p className="font-[family-name:var(--font-caveat)] text-lg text-[#f59e0b]">
-                🎯 Fun fact: I&apos;ve been gaming since I could hold a controller. My first game was Super Mario Bros on the NES!
+                🎯 Fun fact: I won the Gaming Hackathon 2025 at ENSAD with a 2D platformer built in just 48 hours!
               </p>
             </motion.div>
           </motion.div>

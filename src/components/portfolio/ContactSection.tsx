@@ -2,20 +2,21 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Send, Mail, MapPin, Github, Twitter, Linkedin, CheckCircle } from "lucide-react";
+import { Send, Mail, MapPin, Github, Linkedin, CheckCircle } from "lucide-react";
+import { personalInfo } from "@/lib/portfolio-data";
 
 export default function ContactSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
-      setFormData({ name: "", email: "", message: "" });
+      setFormData({ name: "", email: "", subject: "", message: "" });
     }, 3000);
   };
 
@@ -59,8 +60,8 @@ export default function ContactSection() {
             {/* Info cards */}
             <div className="space-y-4">
               {[
-                { icon: Mail, label: "Email", value: "alex@gamedev.dev", color: "#f59e0b" },
-                { icon: MapPin, label: "Location", value: "San Francisco, CA", color: "#06d6a0" },
+                { icon: Mail, label: "Email", value: personalInfo.email, color: "#f59e0b" },
+                { icon: MapPin, label: "Location", value: personalInfo.location, color: "#06d6a0" },
               ].map((item, i) => (
                 <motion.div
                   key={item.label}
@@ -88,13 +89,14 @@ export default function ContactSection() {
               <p className="text-sm text-[#8888aa] mb-4">Find me online</p>
               <div className="flex gap-3">
                 {[
-                  { icon: Github, label: "GitHub", color: "#e8e6e3" },
-                  { icon: Twitter, label: "Twitter", color: "#38bdf8" },
-                  { icon: Linkedin, label: "LinkedIn", color: "#0ea5e9" },
+                  { icon: Github, label: "GitHub", href: personalInfo.github, color: "#e8e6e3" },
+                  { icon: Linkedin, label: "LinkedIn", href: personalInfo.linkedin, color: "#0ea5e9" },
                 ].map((social) => (
                   <motion.a
                     key={social.label}
-                    href="#"
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     whileHover={{ scale: 1.1, y: -3 }}
                     whileTap={{ scale: 0.9 }}
                     className="w-12 h-12 rounded-xl bg-[#1e1e36] border border-[#2a2a4a]/50 flex items-center justify-center hover:border-[#f59e0b]/30 transition-all duration-300 group"
@@ -115,7 +117,7 @@ export default function ContactSection() {
               className="p-4 border border-[#f59e0b]/20 hand-border-alt bg-[#f59e0b]/5"
             >
               <p className="font-[family-name:var(--font-caveat)] text-lg text-[#f59e0b]">
-                🎮 Currently looking for exciting collaborations and indie game projects!
+                🎮 Game design student at ENSAD — always building, always iterating!
               </p>
             </motion.div>
           </motion.div>
@@ -150,6 +152,18 @@ export default function ContactSection() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="john@example.com"
+                  className="w-full px-4 py-3 bg-[#1e1e36]/50 border border-[#2a2a4a] rounded-xl text-[#e8e6e3] placeholder:text-[#555570] focus:outline-none focus:border-[#f59e0b]/50 focus:ring-1 focus:ring-[#f59e0b]/20 transition-all duration-300"
+                />
+              </div>
+
+              {/* Subject */}
+              <div className="space-y-2">
+                <label className="text-sm text-[#8888aa] font-medium">Subject</label>
+                <input
+                  type="text"
+                  value={formData.subject}
+                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                  placeholder="Game collaboration, project inquiry..."
                   className="w-full px-4 py-3 bg-[#1e1e36]/50 border border-[#2a2a4a] rounded-xl text-[#e8e6e3] placeholder:text-[#555570] focus:outline-none focus:border-[#f59e0b]/50 focus:ring-1 focus:ring-[#f59e0b]/20 transition-all duration-300"
                 />
               </div>

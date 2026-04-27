@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soufiane Tajri | Game Designer & Developer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f0e8;
+      --bg-paper: #faf6f0;
+      --fg: #2a2520;
+      --muted: #7a756d;
+      --accent: #c45d3e;
+      --accent-dark: #a34a2f;
+      --ink: #1a1815;
+      --card: #fffdf9;
+      --border: #d4cfc4;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--fg);
+      overflow-x: hidden;
+    }
+
+    .font-display { font-family: 'Caveat', cursive; }
+
+    .sketchy-border { position: relative; }
+    .sketchy-border::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border: 2px solid var(--ink);
+      border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+      pointer-events: none;
+    }
+
+    .sketchy-frame {
+      border: 2px solid var(--ink);
+      border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    }
+
+    .sketchy-frame-alt {
+      border: 2px solid var(--ink);
+      border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;
+    }
+
+    .paper-texture {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50%       { transform: translateY(-15px) rotate(3deg); }
+    }
+    @keyframes floatReverse {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50%       { transform: translateY(15px) rotate(-3deg); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1);   opacity: 0.6; }
+      50%       { transform: scale(1.1); opacity: 0.8; }
+    }
+    @keyframes squiggle {
+      0%, 100% { transform: translateX(0)  translateY(0);  }
+      25%       { transform: translateX(2px) translateY(-2px); }
+      50%       { transform: translateX(0)  translateY(2px); }
+      75%       { transform: translateX(-2px) translateY(0); }
+    }
+    @keyframes popOut {
+      0%   { transform: scale(1) rotate(0deg);  opacity: 1; }
+      100% { transform: scale(0) rotate(20deg); opacity: 0; }
+    }
+
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+    .stagger-4 { transition-delay: 0.4s; }
+
+    .project-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .project-card:hover {
+      transform: translateY(-8px) rotate(0.5deg);
+      box-shadow: 8px 12px 0 rgba(26,24,21,0.15);
+    }
+
+    .btn-sketchy {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.75rem;
+      background: var(--accent);
+      color: white;
+      font-weight: 500;
+      border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+      border: 2px solid var(--ink);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: inherit;
+    }
+    .btn-sketchy:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px) rotate(-1deg);
+      box-shadow: 4px 6px 0 rgba(26,24,21,0.2);
+    }
+    .btn-sketchy:active { transform: translateY(0); box-shadow: none; }
+    .btn-sketchy:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+    .btn-outline-sketchy {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.75rem;
+      background: transparent;
+      color: var(--ink);
+      font-weight: 500;
+      border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+      border: 2px solid var(--ink);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: inherit;
+    }
+    .btn-outline-sketchy:hover {
+      background: var(--ink);
+      color: var(--bg);
+      transform: translateY(-2px) rotate(1deg);
+      box-shadow: 4px 6px 0 rgba(26,24,21,0.15);
+    }
+
+    /* Rectangular skill tag */
+    .skill-rect-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 1rem;
+      background: var(--bg);
+      border: 2px solid var(--ink);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ink);
+      transition: all 0.2s ease;
+      cursor: default;
+    }
+    .skill-rect-tag:hover {
+      background: var(--ink);
+      color: var(--bg);
+      transform: translateY(-2px);
+      box-shadow: 3px 3px 0 var(--accent);
+    }
+
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+    .project-detail {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: var(--bg);
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.5s cubic-bezier(0.77,0,0.175,1);
+    }
+    .project-detail.open { transform: translateX(0); }
+
+    .float-1 { animation: float 6s ease-in-out infinite; }
+    .float-2 { animation: floatReverse 7s ease-in-out infinite; }
+    .float-3 { animation: float 5s ease-in-out infinite 0.5s; }
+    .pulse-1 { animation: pulse 4s ease-in-out infinite; }
+
+    .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
+    .mobile-menu.open { transform: translateX(0); }
+
+    /* Education timeline */
+    .edu-item {
+      border-left: 3px solid var(--accent);
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .edu-item::before {
+      content: '';
+      position: absolute;
+      left: -8px; top: 8px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg-paper);
+    }
+
+    /* Skill tag */
+    .skill-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.35rem 0.9rem;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+      font-size: 0.82rem;
+      color: var(--fg);
+      transition: all 0.2s;
+      cursor: default;
+    }
+    .skill-tag:hover {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+      transform: translateY(-2px) rotate(-1deg);
+    }
+  </style>
+</head>
+<body class="paper-texture">
+
+  <!-- ── Navigation ──────────────────────────────────────────── -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/90 backdrop-blur-sm border-b-2 border-[var(--border)]">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="font-display text-3xl font-bold text-[var(--ink)] hover:text-[var(--accent)] transition-colors">Soufiane.Tajri</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#about"     class="nav-link text-[var(--fg)] hover:text-[var(--ink)] transition-colors">About</a>
+        <a href="#skills"    class="nav-link text-[var(--fg)] hover:text-[var(--ink)] transition-colors">Skills</a>
+        <a href="#projects"  class="nav-link text-[var(--fg)] hover:text-[var(--ink)] transition-colors">Projects</a>
+        <a href="#education" class="nav-link text-[var(--fg)] hover:text-[var(--ink)] transition-colors">Education</a>
+        <a href="#contact"   class="btn-sketchy">Contact Me</a>
+      </div>
+      <button id="menuBtn" class="md:hidden p-2 sketchy-frame-alt" aria-label="Toggle menu">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Mobile Menu ─────────────────────────────────────────── -->
+  <div id="mobileMenu" class="mobile-menu fixed inset-0 z-40 bg-[var(--bg)] flex flex-col items-center justify-center gap-8 md:hidden">
+    <a href="#about"     class="text-2xl font-display text-[var(--fg)] hover:text-[var(--accent)]">About</a>
+    <a href="#skills"    class="text-2xl font-display text-[var(--fg)] hover:text-[var(--accent)]">Skills</a>
+    <a href="#projects"  class="text-2xl font-display text-[var(--fg)] hover:text-[var(--accent)]">Projects</a>
+    <a href="#education" class="text-2xl font-display text-[var(--fg)] hover:text-[var(--accent)]">Education</a>
+    <a href="#contact"   class="btn-sketchy mt-4">Contact Me</a>
+  </div>
+
+  <!-- ── Main Content ────────────────────────────────────────── -->
+  <main id="mainContent">
+
+    <!-- Hero --------------------------------------------------- -->
+    <section class="min-h-screen flex items-center justify-center pt-20 px-6 relative overflow-hidden">
+
+      <!-- Floating decorations -->
+      <svg class="absolute top-32 left-[10%] w-16 h-16 text-[var(--accent)] float-1 opacity-50" viewBox="0 0 64 64" fill="none">
+        <path d="M32 4l4 20 20 4-20 4-4 20-4-20-20-4 20-4z" stroke="currentColor" stroke-width="2" fill="currentColor" fill-opacity="0.2"/>
+      </svg>
+      <svg class="absolute top-[40%] left-[5%] w-12 h-12 text-[var(--ink)] float-3 opacity-30" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/>
+      </svg>
+      <svg class="absolute top-[20%] right-[15%] w-8 h-8 text-[var(--accent)] float-2 opacity-30" viewBox="0 0 32 32" fill="none">
+        <path d="M16 2v28M2 16h28" stroke="currentColor" stroke-width="2"/>
+      </svg>
+      <svg class="absolute bottom-[30%] left-[8%] w-10 h-10 text-[var(--muted)] float-1 opacity-40" viewBox="0 0 40 40" fill="none">
+        <rect x="4" y="4" width="32" height="32" stroke="currentColor" stroke-width="2" transform="rotate(15 20 20)"/>
+      </svg>
+      <svg class="absolute top-[60%] right-[10%] w-14 h-14 text-[var(--border)] pulse-1 opacity-60" viewBox="0 0 64 64" fill="none">
+        <path d="M32 8 L56 56 L8 56 Z" stroke="currentColor" stroke-width="2" fill="currentColor" fill-opacity="0.1"/>
+      </svg>
+      <!-- Game controller deco -->
+      <svg class="absolute bottom-[20%] right-[20%] w-10 h-10 text-[var(--accent)] float-2 opacity-25" viewBox="0 0 40 40" fill="none">
+        <rect x="4" y="12" width="32" height="18" rx="8" stroke="currentColor" stroke-width="2"/>
+        <path d="M13 18v6M10 21h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="27" cy="19" r="2" fill="currentColor"/>
+        <circle cx="31" cy="23" r="2" fill="currentColor"/>
+      </svg>
+
+      <div class="max-w-5xl mx-auto text-center relative z-10">
+        <div class="animate-on-scroll">
+          <p class="text-lg md:text-xl text-[var(--muted)] mb-4 tracking-wide">Hello 👋, I'm</p>
+        </div>
+        <h1 class="font-display text-6xl md:text-8xl lg:text-9xl font-bold text-[var(--ink)] mb-6 animate-on-scroll stagger-1">
+          Soufiane Tajri
+        </h1>
+        <div class="animate-on-scroll stagger-2">
+          <p class="text-xl md:text-2xl text-[var(--fg)] mb-8 max-w-2xl mx-auto">
+            <span class="inline-block relative">
+              Game Developer
+              <svg class="absolute -bottom-1 left-0 w-full h-2 text-[var(--accent)]" viewBox="0 0 100 8" preserveAspectRatio="none">
+                <path d="M0 4 Q 25 0, 50 4 T 100 4" stroke="currentColor" stroke-width="2" fill="none"/>
+              </svg>
+            </span>
+            <span class="text-[var(--muted)] mx-3">&amp;</span>
+            <span class="text-[var(--accent)] font-medium">Game Designer</span>
+          </p>
+        </div>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10 animate-on-scroll stagger-3">
+          <a href="#projects" class="btn-sketchy">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2"/>
+              <path d="M8 21h8M12 17v4"/>
+            </svg>
+            View My Work
+          </a>
+          <a href="mailto:sofian16tajri@gmail.com" class="btn-outline-sketchy">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <path d="M22 6l-10 7L2 6"/>
+            </svg>
+            Email Me
+          </a>
+        </div>
+
+        <!-- Social icons -->
+        <div class="flex items-center justify-center gap-5 mt-8 animate-on-scroll stagger-4">
+          <a href="https://www.linkedin.com/in/soufiane-tajri-50a488257" target="_blank" rel="noopener"
+             class="w-11 h-11 rounded-full border-2 border-[var(--border)] flex items-center justify-center text-[var(--muted)] hover:bg-[var(--ink)] hover:text-[var(--bg)] hover:border-[var(--ink)] transition-all transform hover:rotate-12"
+             aria-label="LinkedIn">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+          <a href="https://github.com/Sofdev005" target="_blank" rel="noopener"
+             class="w-11 h-11 rounded-full border-2 border-[var(--border)] flex items-center justify-center text-[var(--muted)] hover:bg-[var(--ink)] hover:text-[var(--bg)] hover:border-[var(--ink)] transition-all transform hover:-rotate-12"
+             aria-label="GitHub">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 float-1">
+        <div class="w-6 h-10 rounded-full border-2 border-[var(--ink)] flex justify-center pt-2">
+          <div class="w-1.5 h-3 bg-[var(--ink)] rounded-full"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -------------------------------------------------- -->
+    <section id="about" class="py-24 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <!-- Photo -->
+          <div class="animate-on-scroll flex justify-center">
+            <img src="photo.jpeg" alt="Soufiane Tajri"
+                 style="width:410px;height:400px;object-fit:cover;border-radius:18px;"
+                 onerror="this.style.background='var(--border)';this.alt='photo.jpeg'">
+          </div>
+
+          <!-- Bio -->
+          <div class="animate-on-scroll stagger-1">
+            <h2 class="font-display text-5xl md:text-6xl font-bold text-[var(--ink)] mb-6">About Me</h2>
+            <div class="space-y-4 text-lg text-[var(--fg)] leading-relaxed">
+              <p>I'm a <span class="font-semibold text-[var(--accent)]">game designer &amp; developer</span> student focused on building gameplay systems and prototypes.</p>
+              <p>My work centers on player control, interaction, and system-driven mechanics in both 2D and 3D projects. I primarily use <span class="font-semibold">Unity</span> and <span class="font-semibold">Godot</span>, choosing tools based on technical requirements rather than engine preference.</p>
+              <p>I care about clean architecture, iteration speed, and mechanics that feel responsive and intentional.</p>
+            </div>
+
+      
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills ------------------------------------------------- -->
+    <section id="skills" class="py-24 px-6 bg-[var(--bg-paper)]">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16 animate-on-scroll">
+          <h2 class="font-display text-5xl md:text-6xl font-bold text-[var(--ink)] mb-4">Skills &amp; Tools</h2>
+          <p class="text-lg text-[var(--muted)] max-w-xl mx-auto">A blend of creative design and technical expertise</p>
+        </div>
+
+        <!-- Two bags -->
+        <div class="grid md:grid-cols-2 gap-12 mb-12">
+          <!-- Game Design bag -->
+          <div class="animate-on-scroll stagger-1">
+            <div class="sketchy-frame bg-[var(--card)] p-8 h-full hover:shadow-xl transition-shadow duration-300">
+              <div class="flex items-center gap-3 mb-6">
+                <svg class="w-8 h-8 text-[var(--accent)]" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M8 24c0 0 4-8 12-16"/><path d="M20 8l4-4 4 4-4 4-4-4z"/><path d="M6 26l2-2"/>
+                </svg>
+                <h3 class="font-display text-2xl font-bold text-[var(--ink)]">Game Design</h3>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:0.65rem;">
+                <span class="skill-rect-tag">Game Design</span>
+                <span class="skill-rect-tag">Level Design</span>
+                <span class="skill-rect-tag">Systems Design</span>
+                <span class="skill-rect-tag">AI Behavior</span>
+                <span class="skill-rect-tag">Sound Design</span>
+                <span class="skill-rect-tag">Narrative Design</span>
+                <span class="skill-rect-tag">UI/UX for Games</span>
+                <span class="skill-rect-tag">3D Modeling &amp; Animation</span>
+                <span class="skill-rect-tag">Pixel Art</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Development bag -->
+          <div class="animate-on-scroll stagger-2">
+            <div class="sketchy-frame-alt bg-[var(--card)] p-8 h-full hover:shadow-xl transition-shadow duration-300">
+              <div class="flex items-center gap-3 mb-6">
+                <svg class="w-8 h-8 text-[var(--accent)]" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10 8l-6 8 6 8"/><path d="M22 8l6 8-6 8"/><path d="M18 4l-4 24"/>
+                </svg>
+                <h3 class="font-display text-2xl font-bold text-[var(--ink)]">Development</h3>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:0.65rem;">
+                <span class="skill-rect-tag">Unity / C#</span>
+                <span class="skill-rect-tag">Godot 4 / GDScript</span>
+                <span class="skill-rect-tag">Unreal Engine</span>
+                <span class="skill-rect-tag">Gameplay Programming</span>
+                <span class="skill-rect-tag">OOP (Java, Python, C++)</span>
+                <span class="skill-rect-tag">C</span>
+                <span class="skill-rect-tag">VB.net</span>
+                <span class="skill-rect-tag">Full-stack Web Dev</span>
+                <span class="skill-rect-tag">SQL / T-SQL</span>
+                <span class="skill-rect-tag">UML</span>
+                <span class="skill-rect-tag">Git</span>
+                <span class="skill-rect-tag">Software Engineering</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Projects ----------------------------------------------- -->
+    <section id="projects" class="py-24 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16 animate-on-scroll">
+          <h2 class="font-display text-5xl md:text-6xl font-bold text-[var(--ink)] mb-4">Featured Projects</h2>
+          <p class="text-lg text-[var(--muted)] max-w-xl mx-auto">A selection of games I've designed and developed</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8" id="projectsGrid"></div>
+      </div>
+    </section>
+
+    <!-- Education ---------------------------------------------- -->
+    <section id="education" class="py-24 px-6 bg-[var(--bg-paper)]">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-16 animate-on-scroll">
+          <h2 class="font-display text-5xl md:text-6xl font-bold text-[var(--ink)] mb-4">Education</h2>
+          <p class="text-lg text-[var(--muted)]">My academic journey</p>
+        </div>
+        <div id="educationList" class="space-y-10"></div>
+      </div>
+    </section>
+
+    <!-- Contact ------------------------------------------------ -->
+    <section id="contact" class="py-24 px-6 bg-[var(--ink)]">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12 animate-on-scroll">
+          <h2 class="font-display text-5xl md:text-6xl font-bold text-[var(--bg)] mb-4">Let's Create Together</h2>
+          <p class="text-lg text-[var(--border)] max-w-xl mx-auto">Have a project in mind? I'd love to hear about it.</p>
+        </div>
+
+        <div class="sketchy-frame bg-[var(--card)] p-8 md:p-12 animate-on-scroll stagger-1">
+          <form id="contactForm" class="space-y-6">
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <label for="name" class="block text-sm font-medium text-[var(--fg)] mb-2">Name</label>
+                <input type="text" id="name" name="name" required
+                  class="w-full px-4 py-3 bg-[var(--bg)] border-2 border-[var(--border)] rounded-lg focus:outline-none focus:border-[var(--accent)] transition-colors"
+                  placeholder="Your name">
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-[var(--fg)] mb-2">Email</label>
+                <input type="email" id="email" name="email" required
+                  class="w-full px-4 py-3 bg-[var(--bg)] border-2 border-[var(--border)] rounded-lg focus:outline-none focus:border-[var(--accent)] transition-colors"
+                  placeholder="your@email.com">
+              </div>
+            </div>
+            <div>
+              <label for="subject" class="block text-sm font-medium text-[var(--fg)] mb-2">Subject</label>
+              <input type="text" id="subject" name="subject" required
+                class="w-full px-4 py-3 bg-[var(--bg)] border-2 border-[var(--border)] rounded-lg focus:outline-none focus:border-[var(--accent)] transition-colors"
+                placeholder="What's this about?">
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium text-[var(--fg)] mb-2">Message</label>
+              <textarea id="message" name="message" rows="5" required
+                class="w-full px-4 py-3 bg-[var(--bg)] border-2 border-[var(--border)] rounded-lg focus:outline-none focus:border-[var(--accent)] transition-colors resize-none"
+                placeholder="Tell me about your project..."></textarea>
+            </div>
+            <button type="submit" class="btn-sketchy w-full justify-center">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/>
+              </svg>
+              Send Message
+            </button>
+          </form>
+        </div>
+
+        <!-- Social / Direct contact links -->
+        <div class="flex justify-center gap-6 mt-12 animate-on-scroll stagger-2">
+          <a href="mailto:sofian16tajri@gmail.com"
+             class="w-12 h-12 rounded-full border-2 border-[var(--border)] flex items-center justify-center text-[var(--border)] hover:bg-[var(--border)] hover:text-[var(--ink)] transition-colors transform hover:rotate-12"
+             aria-label="Email">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <path d="M22 6l-10 7L2 6"/>
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/in/soufiane-tajri-50a488257" target="_blank" rel="noopener"
+             class="w-12 h-12 rounded-full border-2 border-[var(--border)] flex items-center justify-center text-[var(--border)] hover:bg-[var(--border)] hover:text-[var(--ink)] transition-colors transform hover:-rotate-12"
+             aria-label="LinkedIn">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+          </a>
+          <a href="https://github.com/Sofdev005" target="_blank" rel="noopener"
+             class="w-12 h-12 rounded-full border-2 border-[var(--border)] flex items-center justify-center text-[var(--border)] hover:bg-[var(--border)] hover:text-[var(--ink)] transition-colors transform hover:rotate-12"
+             aria-label="GitHub">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer ------------------------------------------------- -->
+    <footer class="py-8 px-6 bg-[var(--ink)] border-t border-[var(--border)]">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-[var(--border)] text-sm">© 2026 Soufiane Tajri. All Rights Reserved.</p>
+        <p class="text-[var(--muted)] text-sm">Built with passion for games &amp; good code</p>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ── Project Detail Panel ────────────────────────────────── -->
+  <div id="projectDetail" class="project-detail">
+    <div class="min-h-screen py-8 px-6 paper-texture">
+      <div class="max-w-5xl mx-auto">
+        <button id="backBtn" class="flex items-center gap-2 text-[var(--fg)] hover:text-[var(--accent)] transition-colors mb-8 group">
+          <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          <span class="font-medium">Back to Projects</span>
+        </button>
+        <div id="projectDetailContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── JavaScript ──────────────────────────────────────────── -->
+  <script>
+    // ── Data ─────────────────────────────────────────────────
+    const additionalSkillTags = [
+      "Gameplay Programming", "Software Engineering",
+      "OOP (Java, Python, C++)", "C", "VB.net",
+      "Git & Version Control", "SQL (T-SQL / SQL Server) & UML",
+      "Sound Design", "Pixel Art"
+    ];
+
+    const projects = [
+      {
+        id: 1,
+        title: "Asylum: Fractured Mind",
+        category: "Horror",
+        year: "2025",
+        thumbnailSrc: null,
+        thumbnailGradient: "linear-gradient(135deg, #1a0508 0%, #2d0c0c 50%, #0e0e1a 100%)",
+        description: "A psychological horror game set in a derelict asylum — atmosphere, tension, and narrative-driven exploration.",
+        longDescription: "A psychological horror game set in a derelict asylum, built with a strong focus on atmosphere, tension, and narrative-driven exploration. The project emphasizes immersive sound design, level pacing, and systemic gameplay mechanics.",
+        highlights: [
+          "Immersive atmosphere and tension-driven level design",
+          "Narrative-driven exploration and pacing systems",
+          "Advanced sound design for psychological horror",
+          "Systemic gameplay mechanics and event triggers"
+        ],
+        role: "Game Designer & Developer",
+        duration: "In Progress",
+        team: "Solo",
+        platforms: ["PC"],
+        awards: [],
+        skills: ["Unity", "C#", "Game Design", "Level Design", "Sound Design", "Systems Design", "Horror Gameplay"],
+        media: [{ type: 'placeholder', text: 'Asylum: Fractured Mind' }]
+      },
+      {
+        id: 2,
+        title: "HOMA",
+        category: "Platformer",
+        year: "2025",
+        thumbnailSrc: "./homa1.png",
+        thumbnailGradient: "linear-gradient(135deg, #1a3a2e 0%, #2d5a47 50%, #1a3a2e 100%)",
+        description: "A 2D mobile platformer built in Godot that won the Gaming Hackathon 2025 at ENSAD.",
+        longDescription: "A 2D mobile platformer developed in Godot as part of the Gaming Hackathon 2025 at ENSAD. The game won the hackathon. I was responsible for core gameplay development, systems implementation, debugging, and extensive testing to ensure stability and performance.",
+        highlights: [
+          "Won Gaming Hackathon 2025 at ENSAD",
+          "Core gameplay systems and mechanics implementation",
+          "Mobile-optimized performance and responsive controls",
+          "Extensive testing and debugging pipeline"
+        ],
+        role: "Gameplay Developer & Tester",
+        duration: "Hackathon (48h)",
+        team: "Team",
+        platforms: ["Mobile"],
+        awards: ["🏆 Gaming Hackathon 2025 Winner"],
+        skills: ["Godot", "GDScript", "2D Platformer Design", "Gameplay Programming", "Mobile Optimization", "Testing & Debugging", "Team Collaboration"],
+        media: [
+          { type: 'image', src: './homa1.png' },
+          { type: 'image', src: './homa2.png' },
+          { type: 'image', src: './homa4.png' },
+          { type: 'video', src: './ff.mp4'   }
+        ]
+      },
+      {
+        id: 3,
+        title: "Paralysis Dream",
+        category: "Horror",
+        year: "2024",
+        thumbnailSrc: "./MM.png",
+        thumbnailGradient: "linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 50%, #2d1a2d 100%)",
+        description: "A psychological horror game created entirely from scratch — all level design, sound, 3D assets, and gameplay programming.",
+        longDescription: "A psychological horror game created entirely from scratch. I handled all aspects of development, including level design, sound design, 3D asset creation, and gameplay programming, with a focus on atmosphere and player psychology.",
+        highlights: [
+          "Full solo development pipeline end-to-end",
+          "Original 3D asset creation and animation",
+          "Atmosphere-first level and sound design",
+          "Player psychology-driven gameplay systems"
+        ],
+        role: "Solo Developer (Full Stack)",
+        duration: "Solo Project",
+        team: "Solo",
+        platforms: ["PC"],
+        awards: [],
+        skills: ["Unity", "C#", "Game Design", "Level Design", "Sound Design", "3D Modeling", "Gameplay Programming", "Psychological Horror"],
+        media: [
+          { type: 'image', src: './MM.png'   },
+          { type: 'video', src: './intro.mp4'},
+          { type: 'image', src: './gp.png'   },
+          { type: 'image', src: './gp2.png'  },
+          { type: 'image', src: './gp3.png'  },
+          { type: 'video', src: './gpp.mp4'  }
+        ]
+      },
+      {
+        id: 4,
+        title: "Skyfall",
+        category: "2D Game",
+        year: "2024",
+        thumbnailSrc: "./sk.png",
+        thumbnailGradient: "linear-gradient(135deg, #0a1a2e 0%, #1a3a5e 50%, #2d5a8e 100%)",
+        description: "A 2D solo Unity game — clean architecture, responsive controls, and polished game feel.",
+        longDescription: "A 2D game developed solo using Unity. I managed the full production pipeline, from asset integration to gameplay programming, focusing on clean architecture, responsive controls, and polished game feel.",
+        highlights: [
+          "Full solo production pipeline from concept to build",
+          "Responsive controls and polished game feel",
+          "Clean architecture and maintainable code structure",
+          "Custom pixel art and sound integration"
+        ],
+        role: "Solo Developer",
+        duration: "Solo Project",
+        team: "Solo",
+        platforms: ["PC"],
+        awards: [],
+        skills: ["Unity", "C#", "2D Game Development", "Gameplay Programming", "Sound Design", "Pixel Art Creation"],
+        media: [
+          { type: 'image', src: './sk.png'  },
+          { type: 'image', src: './sk2.png' },
+          { type: 'image', src: './sk3.png' }
+        ]
+      }
+    ];
+
+    const education = [
+      {
+        school: "École Nationale Supérieure d'Art et de Design (ENSAD)",
+        degree: "DENSAD (Bac+5) — Game Design & Animation",
+        dateRange: "Oct 2024 — Jun 2027",
+        achievements: [
+          "Advanced training in game design, interactive systems, and animation",
+          "Hands-on projects using Unity and C# for gameplay and systems development",
+          "Experience in level design, character design, and real-time 2D/3D animation",
+          "Multidisciplinary approach combining UI/UX, sound design, and systems design"
+        ]
+      },
+      {
+        school: "Brevet de Technicien Supérieur (BTS)",
+        degree: "Bac+2 — Information Systems Development",
+        dateRange: "Oct 2022 — Jul 2024",
+        achievements: [
+          "Strong foundation in software development and object-oriented programming",
+          "Full-stack web development with Java and backend systems",
+          "Database design and management using Oracle Database",
+          "Applied UML modeling and software architecture principles",
+          "Project management and collaborative development workflows"
+        ]
+      }
+    ];
+
+    // ── Slide state ──────────────────────────────────────────
+    let currentSlideIndex   = 0;
+    let currentDetailProject = null;
+
+    // ── DOM refs (set after DOMContentLoaded) ────────────────
+    let projectDetail        = null;
+    let projectDetailContent = null;
+    let backBtn              = null;
+    let menuBtn              = null;
+    let mobileMenu           = null;
+    let characterContainer   = null;
+
+    // ── Boot ─────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      projectDetail        = document.getElementById('projectDetail');
+      projectDetailContent = document.getElementById('projectDetailContent');
+      backBtn              = document.getElementById('backBtn');
+      menuBtn              = document.getElementById('menuBtn');
+      mobileMenu           = document.getElementById('mobileMenu');
+      characterContainer   = document.getElementById('characterContainer');
+
+      renderSkillTags();
+      renderProjects();
+      renderEducation();
+      setupScrollObserver();
+      setupSkillAnimation();
+      setupEventListeners();
+    });
+
+    // ── Render helpers ───────────────────────────────────────
+    function renderSkillTags() {
+      const container = document.getElementById('skillTagsContainer');
+      if (!container) return;
+      container.innerHTML = additionalSkillTags.map(s =>
+        `<span class="skill-tag">${s}</span>`
+      ).join('');
+    }
+
+    function renderProjects() {
+      const grid = document.getElementById('projectsGrid');
+      if (!grid) return;
+
+      grid.innerHTML = projects.map((project, index) => {
+        const thumbContent = project.thumbnailSrc
+          ? `<img src="${project.thumbnailSrc}" alt="${project.title}"
+               style="width:100%;height:100%;object-fit:cover;"
+               onerror="this.style.display='none'">`
+          : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
+               <svg style="width:4rem;height:4rem;opacity:0.35;color:white;" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+                 <rect x="8" y="16" width="48" height="32" rx="4"/>
+                 <circle cx="20" cy="32" r="6"/>
+                 <path d="M30 32h24"/>
+               </svg>
+             </div>`;
+
+        const awardBadge = project.awards.length
+          ? `<span style="font-size:0.7rem;padding:0.2rem 0.6rem;background:var(--accent);color:white;border-radius:99px;margin-left:0.5rem;">${project.awards[0]}</span>`
+          : '';
+
+        return `
+          <article class="project-card sketchy-frame bg-[var(--card)] overflow-hidden cursor-pointer animate-on-scroll stagger-${(index % 4) + 1}"
+                   data-project-id="${project.id}" tabindex="0" role="button" aria-label="View ${project.title} details">
+            <div class="aspect-video relative overflow-hidden" style="background:${project.thumbnailGradient};">
+              ${thumbContent}
+            </div>
+            <div class="p-6">
+              <div class="flex items-center flex-wrap gap-1 mb-2">
+                <span class="text-xs font-medium text-[var(--accent)] uppercase tracking-wider">${project.category}</span>
+                <span class="text-xs text-[var(--muted)]">· ${project.year}</span>
+                ${awardBadge}
+              </div>
+              <h3 class="font-display text-2xl font-bold text-[var(--ink)] mb-2">${project.title}</h3>
+              <p class="text-sm text-[var(--muted)]" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${project.description}</p>
+              <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.75rem;">
+                ${project.skills.slice(0, 3).map(s =>
+                  `<span style="font-size:0.72rem;padding:0.2rem 0.65rem;background:var(--bg);border:1.5px solid var(--border);border-radius:99px;color:var(--muted)">${s}</span>`
+                ).join('')}
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      document.querySelectorAll('[data-project-id]').forEach(card => {
+        const handler = () => openProject(parseInt(card.dataset.projectId));
+        card.addEventListener('click', handler);
+        card.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); }
+        });
+      });
+    }
+
+    function renderEducation() {
+      const list = document.getElementById('educationList');
+      if (!list) return;
+
+      list.innerHTML = education.map((e, i) => `
+        <div class="edu-item animate-on-scroll stagger-${i + 1}">
+          <div class="sketchy-frame-alt bg-[var(--card)] p-6 md:p-8">
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-3">
+              <div>
+                <h3 class="font-display text-2xl font-bold text-[var(--ink)]">${e.school}</h3>
+                <p class="text-[var(--accent)] font-medium mt-1">${e.degree}</p>
+              </div>
+              <span class="text-sm text-[var(--muted)] italic whitespace-nowrap">${e.dateRange}</span>
+            </div>
+            <ul class="space-y-2 mt-4">
+              ${e.achievements.map(a => `
+                <li class="flex items-start gap-3 text-[var(--fg)]">
+                  <span style="color:var(--accent);font-weight:bold;flex-shrink:0;">▸</span>
+                  <span>${a}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ── Project detail ───────────────────────────────────────
+    function openProject(projectId) {
+      const project = projects.find(p => p.id === projectId);
+      if (!project || !projectDetailContent || !projectDetail) return;
+
+      currentSlideIndex    = 0;
+      currentDetailProject = project;
+
+      const hasMultiple = project.media.length > 1;
+
+      const mediaSlides = project.media.map(m => {
+        if (m.type === 'image') {
+          return `<div style="min-width:100%;height:100%;flex-shrink:0;">
+                    <img src="${m.src}" alt="${project.title}"
+                         style="width:100%;height:100%;object-fit:cover;"
+                         onerror="this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center';this.style.display='none';this.parentElement.insertAdjacentHTML('beforeend','<span style=\'color:#888;font-size:0.9rem;\'>Image not found: ${m.src}</span>')">
+                  </div>`;
+        } else if (m.type === 'video') {
+          return `<div style="min-width:100%;height:100%;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:#111;">
+                    <video controls style="max-width:100%;max-height:100%;object-fit:contain;" preload="metadata">
+                      <source src="${m.src}" type="video/mp4">
+                      <p style="color:#aaa;padding:1rem;text-align:center;">Video not found: ${m.src}</p>
+                    </video>
+                  </div>`;
+        } else {
+          return `<div style="min-width:100%;height:100%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Caveat',cursive;font-size:2rem;color:white;font-weight:bold;">${m.text}</div>`;
+        }
+      }).join('');
+
+      const dots = hasMultiple
+        ? `<div id="slideDots" style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;">
+             ${project.media.map((_, i) =>
+               `<button class="slide-dot" data-idx="${i}"
+                   onclick="goToDetailSlide(${i})"
+                   style="width:8px;height:8px;border-radius:50%;background:${i===0?'white':'rgba(255,255,255,0.4)'};border:none;cursor:pointer;transition:background 0.3s;padding:0;"
+                   aria-label="Go to slide ${i+1}"></button>`
+             ).join('')}
+           </div>`
+        : '';
+
+      const navBtns = hasMultiple
+        ? `<button onclick="changeDetailSlide(-1)"
+               style="position:absolute;top:50%;left:12px;transform:translateY(-50%);background:rgba(255,255,255,0.9);border:none;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;z-index:5;">&#10094;</button>
+           <button onclick="changeDetailSlide(1)"
+               style="position:absolute;top:50%;right:12px;transform:translateY(-50%);background:rgba(255,255,255,0.9);border:none;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;z-index:5;">&#10095;</button>`
+        : '';
+
+      const awardBadge = project.awards.length
+        ? `<div style="margin-bottom:0.75rem;">
+             ${project.awards.map(a => `<span style="font-size:0.8rem;padding:0.3rem 0.9rem;background:var(--accent);color:white;border-radius:99px;">${a}</span>`).join(' ')}
+           </div>`
+        : '';
+
+      projectDetailContent.innerHTML = `
+        <div class="animate-on-scroll visible">
+          <!-- Media slider -->
+          <div class="relative rounded-lg mb-8 overflow-hidden"
+               style="height:420px;background:${project.thumbnailGradient};">
+            <div id="mediaSlider" style="display:flex;transition:transform 0.4s ease;height:100%;">
+              ${mediaSlides}
+            </div>
+            ${navBtns}
+            ${dots}
+          </div>
+
+          <!-- Title / meta -->
+          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-sm font-medium text-[var(--accent)] uppercase tracking-wider">${project.category}</span>
+                <span class="text-sm text-[var(--muted)]">${project.year}</span>
+              </div>
+              ${awardBadge}
+              <h1 class="font-display text-5xl md:text-6xl font-bold text-[var(--ink)]">${project.title}</h1>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              ${project.platforms.map(p => `<span class="px-3 py-1 bg-[var(--bg)] border border-[var(--border)] rounded-full text-sm text-[var(--fg)]">${p}</span>`).join('')}
+            </div>
+          </div>
+
+          <p class="text-lg text-[var(--fg)] leading-relaxed mb-8">${project.longDescription}</p>
+
+          <!-- Highlights -->
+          <div class="sketchy-frame bg-[var(--card)] p-8 mb-8">
+            <h2 class="font-display text-2xl font-bold text-[var(--ink)] mb-4">Key Highlights</h2>
+            <ul class="space-y-3">
+              ${project.highlights.map(h => `
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-[var(--accent)] mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M10 2l2.5 5 5.5.8-4 3.9.9 5.5L10 14.8 5.1 17.2l.9-5.5-4-3.9 5.5-.8L10 2z"/>
+                  </svg>
+                  <span class="text-[var(--fg)]">${h}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+
+          <!-- Meta cards -->
+          <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <div class="sketchy-frame-alt bg-[var(--card)] p-6">
+              <p class="text-sm text-[var(--muted)] mb-1">Role</p>
+              <p class="font-medium text-[var(--fg)]">${project.role}</p>
+            </div>
+            <div class="sketchy-frame-alt bg-[var(--card)] p-6">
+              <p class="text-sm text-[var(--muted)] mb-1">Duration</p>
+              <p class="font-medium text-[var(--fg)]">${project.duration}</p>
+            </div>
+            <div class="sketchy-frame-alt bg-[var(--card)] p-6">
+              <p class="text-sm text-[var(--muted)] mb-1">Team</p>
+              <p class="font-medium text-[var(--fg)]">${project.team}</p>
+            </div>
+          </div>
+
+          <!-- Tech used -->
+          <div>
+            <h3 class="font-display text-xl font-bold text-[var(--ink)] mb-3">Technologies Used</h3>
+            <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+              ${project.skills.map(s =>
+                `<span style="padding:0.4rem 1rem;background:var(--ink);color:var(--bg);border-radius:99px;font-size:0.875rem;">${s}</span>`
+              ).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Keyboard nav for slider
+      projectDetail._keyHandler = e => {
+        if (e.key === 'ArrowLeft')  changeDetailSlide(-1);
+        if (e.key === 'ArrowRight') changeDetailSlide(1);
+      };
+      document.addEventListener('keydown', projectDetail._keyHandler);
+
+      projectDetail.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      projectDetail.scrollTop = 0;
+    }
+
+    function closeProject() {
+      if (!projectDetail) return;
+      // Pause all videos
+      document.querySelectorAll('#mediaSlider video').forEach(v => v.pause());
+      // Remove key listener
+      if (projectDetail._keyHandler) {
+        document.removeEventListener('keydown', projectDetail._keyHandler);
+        projectDetail._keyHandler = null;
+      }
+      projectDetail.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function changeDetailSlide(dir) {
+      if (!currentDetailProject) return;
+      document.querySelectorAll('#mediaSlider video').forEach(v => v.pause());
+      currentSlideIndex += dir;
+      const len = currentDetailProject.media.length;
+      if (currentSlideIndex < 0) currentSlideIndex = len - 1;
+      if (currentSlideIndex >= len) currentSlideIndex = 0;
+      updateDetailSlider();
+    }
+
+    function goToDetailSlide(idx) {
+      document.querySelectorAll('#mediaSlider video').forEach(v => v.pause());
+      currentSlideIndex = idx;
+      updateDetailSlider();
+    }
+
+    function updateDetailSlider() {
+      const slider = document.getElementById('mediaSlider');
+      if (slider) slider.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+      document.querySelectorAll('.slide-dot').forEach((dot, i) => {
+        dot.style.background = i === currentSlideIndex ? 'white' : 'rgba(255,255,255,0.4)';
+      });
+    }
+
+    // ── Scroll / animation helpers ───────────────────────────
+    function setupScrollObserver() {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    }
+
+    function setupSkillAnimation() {
+      const skillObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const item = entry.target;
+            const fill = item.querySelector('.skill-fill');
+            const pct  = parseInt(item.dataset.skill) || 0;
+            if (fill) {
+              setTimeout(() => {
+                fill.style.transform = `scaleX(${pct / 100})`;
+                fill.classList.add('animate');
+              }, 200);
+            }
+          }
+        });
+      }, { threshold: 0.5 });
+
+      document.querySelectorAll('.skill-item').forEach(el => skillObserver.observe(el));
+    }
+
+    function setupEventListeners() {
+      // Back button
+      if (backBtn) backBtn.addEventListener('click', closeProject);
+
+      // Mobile menu
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+        mobileMenu.querySelectorAll('a').forEach(link =>
+          link.addEventListener('click', () => mobileMenu.classList.remove('open'))
+        );
+      }
+
+      // Escape to close detail
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && projectDetail && projectDetail.classList.contains('open')) closeProject();
+      });
+
+      // Contact form
+      const form = document.getElementById('contactForm');
+      if (form) {
+        form.addEventListener('submit', e => {
+          e.preventDefault();
+          const btn = form.querySelector('button[type="submit"]');
+          if (btn) {
+            const orig = btn.innerHTML;
+            btn.textContent = '✓ Sent!';
+            btn.disabled = true;
+            setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; form.reset(); }, 2500);
+          }
+        });
+      }
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', e => {
+          const href = anchor.getAttribute('href');
+          if (href && href !== '#') {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+            if (mobileMenu) mobileMenu.classList.remove('open');
+          }
+        });
+      });
+    }
+  </script>
+</body>
+</html>

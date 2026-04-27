@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Linkedin, Github } from "lucide-react";
+import { personalInfo } from "@/lib/portfolio-data";
 
 export default function HeroSection() {
   return (
@@ -54,7 +55,7 @@ export default function HeroSection() {
         >
           <span className="w-2 h-2 rounded-full bg-[#06d6a0] animate-pulse" />
           <span className="text-[#f59e0b] text-sm font-medium font-[family-name:var(--font-geist-mono)]">
-            Available for freelance work
+            Open to collaborations & opportunities
           </span>
         </motion.div>
 
@@ -67,7 +68,7 @@ export default function HeroSection() {
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight mb-4">
             <span className="text-[#e8e6e3]">Hi, I&apos;m </span>
             <span className="relative inline-block">
-              <span className="text-[#f59e0b] text-glow-amber">Alex Rivers</span>
+              <span className="text-[#f59e0b] text-glow-amber">Soufiane Tajri</span>
               <svg
                 className="absolute -bottom-2 left-0 w-full"
                 viewBox="0 0 300 12"
@@ -94,7 +95,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.4 }}
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-[family-name:var(--font-caveat)] text-[#06d6a0] font-bold mb-6 text-glow-green">
-            Game Designer & Developer
+            Game Developer & Game Designer
           </h2>
         </motion.div>
 
@@ -104,9 +105,9 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-lg sm:text-xl text-[#8888aa] max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Crafting immersive worlds and unforgettable gameplay experiences.
+          Focused on building gameplay systems and prototypes — player control,
           <br className="hidden sm:block" />
-          From pixel art to 3D — I turn wild ideas into playable realities.
+          interaction, and system-driven mechanics in both 2D and 3D.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -122,17 +123,46 @@ export default function HeroSection() {
             whileTap={{ scale: 0.95 }}
             className="group relative px-8 py-4 bg-[#f59e0b] text-[#0d0d1a] font-bold text-lg rounded-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-[#f59e0b]/25"
           >
-            <span className="relative z-10">View My Games</span>
+            <span className="relative z-10">View My Work</span>
             <div className="absolute inset-0 bg-[#fbbf24] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </motion.a>
 
           <motion.a
-            href="#contact"
+            href={`mailto:${personalInfo.email}`}
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             className="px-8 py-4 border-2 border-[#2a2a4a] text-[#e8e6e3] font-bold text-lg rounded-full hover:border-[#f59e0b]/50 hover:bg-[#f59e0b]/5 transition-all duration-300"
           >
-            Let&apos;s Talk
+            Email Me
+          </motion.a>
+        </motion.div>
+
+        {/* Social Links */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.0 }}
+          className="flex items-center justify-center gap-4 mt-6"
+        >
+          <motion.a
+            href={personalInfo.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.1, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-10 h-10 rounded-full bg-[#1e1e36] border border-[#2a2a4a]/50 flex items-center justify-center hover:border-[#0ea5e9]/30 transition-all duration-300 group"
+          >
+            <Linkedin className="w-4 h-4 text-[#8888aa] group-hover:text-[#0ea5e9] transition-colors duration-300" />
+          </motion.a>
+          <motion.a
+            href={personalInfo.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.1, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-10 h-10 rounded-full bg-[#1e1e36] border border-[#2a2a4a]/50 flex items-center justify-center hover:border-[#e8e6e3]/30 transition-all duration-300 group"
+          >
+            <Github className="w-4 h-4 text-[#8888aa] group-hover:text-[#e8e6e3] transition-colors duration-300" />
           </motion.a>
         </motion.div>
 

@@ -9,6 +9,7 @@ const navLinks = [
   { href: "#about", label: "About" },
   { href: "#skills", label: "Skills" },
   { href: "#projects", label: "Projects" },
+  { href: "#education", label: "Education" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -60,7 +61,7 @@ export default function Navigation() {
                 <div className="absolute inset-0 w-7 h-7 sm:w-8 sm:h-8 bg-[#f59e0b]/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               <span className="font-[family-name:var(--font-caveat)] text-xl sm:text-2xl font-bold text-[#f59e0b] text-glow-amber">
-                Alex.dev
+                Soufiane.Tajri
               </span>
             </motion.a>
 
