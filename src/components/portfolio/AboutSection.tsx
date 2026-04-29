@@ -168,9 +168,9 @@ export default function AboutSection() {
             {/* Stats cards */}
             <div className="grid grid-cols-3 gap-4 pt-4">
               {[
-                { number: "4+", label: "Games Built", color: "#f59e0b" },
-                { number: "2+", label: "Years Coding", color: "#06d6a0" },
-                { number: "1", label: "Hackathon Won", color: "#ef476f" },
+                { number: "+6", label: "Games Built", color: "#f59e0b" },
+                { number: "+2", label: "Years of game dev", color: "#06d6a0" },
+                { number: "2", label: "Hackathon Won", color: "#ef476f" },
               ].map((stat, i) => (
                 <motion.div
                   key={stat.label}
@@ -197,7 +197,7 @@ export default function AboutSection() {
               className="relative mt-6 p-4 bg-[#f59e0b]/5 border-l-4 border-[#f59e0b]/50 hand-border-alt border-l-4"
             >
               <p className="font-[family-name:var(--font-caveat)] text-lg text-[#f59e0b]">
-                🎯 Fun fact: I won the Gaming Hackathon 2025 at ENSAD with a 2D platformer built in just 48 hours!
+                🎯 fact: My favorite game is GTA vice city  
               </p>
             </motion.div>
           </motion.div>

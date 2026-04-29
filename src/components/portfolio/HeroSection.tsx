@@ -105,9 +105,9 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-lg sm:text-xl text-[#8888aa] max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Focused on building gameplay systems and prototypes — player control,
+          Building gameplay systems from blueprint to polish. Player control,
           <br className="hidden sm:block" />
-          interaction, and system-driven mechanics in both 2D and 3D.
+           interaction, and emergent mechanics across 2D and 3D projects.
         </motion.p>
 
         {/* CTA Buttons */}
