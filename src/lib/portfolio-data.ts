@@ -249,7 +249,7 @@ export const projects: Project[] = [
     color: "#ef476f",
     icon: "🏚️",
     gradient: "from-rose-900/60 to-gray-950",
-    images: [],
+    images: ["asylum/main menu.png","asylum/gp1.png","asylum/gp3.png","asylum/env3.png"],
     videos: [],
   }
 ];
