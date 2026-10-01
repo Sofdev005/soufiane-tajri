@@ -251,6 +251,32 @@ export const projects: Project[] = [
     gradient: "from-rose-900/60 to-gray-950",
     images: ["asylum/main menu.png","asylum/gp1.png","asylum/gp3.png","asylum/env3.png"],
     videos: [],
+  },
+  {
+    id: "quantify",
+    title: "Quantify",
+    category: "Educational / Arcade",
+    year: "2026",
+    shortDescription: "A competitive STEM game designed for interactive displays, turning arithmetic into fast-paced arcade action.",
+    fullDescription: "A competitive STEM educational game designed for large interactive classroom displays[cite: 1, 2]. Engineered as a solo developer from concept to playable build, Quantify blends live classroom engagement with fast-paced arcade action where solving math equations directly drives in-game mechanics in 'The Lumberjack Duel' module[cite: 1, 5, 6]. Built on a decoupled event-driven Unity architecture to ensure seamless performance on low-end hardware[cite: 3, 4, 9].",
+    role: "Solo Developer",
+    duration: "Solo Project",
+    team: "Solo",
+    platforms: ["PC"],
+    awards: [],
+    highlights: [
+      "Decoupled event-driven core architecture (Global Event Bus)",
+      "Pure local split-screen multiplayer for multi-team gameplay",
+      "Hybrid 2D/3D visual direction with cartoon/toon-shaded styling",
+      "Performance-optimized with Object Pooling for low-end hardware",
+    ],
+    techStack: ["Unity", "C#", "Game Design", "Level Design", "2D/3D Art", "UX/UI Design", "Gameplay Programming", "Educational Game"],
+    status: "Released",
+    color: "#22c55e",
+    icon: "🧮",
+    gradient: "from-emerald-900/60 to-gray-950",
+    images: ["quantify/33.png"],
+    videos: [],
   }
 ];
 
